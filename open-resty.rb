@@ -2,8 +2,8 @@ require 'formula'
 
 class OpenResty < Formula
   homepage 'http://openresty.org/'
-  url 'http://agentzh.org/misc/nginx/ngx_openresty-1.0.11.28.tar.gz'
-  sha1 '2c32743b0395226fdbe80edbcb77ada4230dd906'
+  url 'http://agentzh.org/misc/nginx/ngx_openresty-1.2.1.14.tar.gz'
+  sha1 'ed579ccedc3e67aaa3a58bafe2fc737c1750e5d5'
 
   devel do
     url 'http://agentzh.org/misc/nginx/ngx_openresty-1.0.15.9.tar.gz'
@@ -11,7 +11,7 @@ class OpenResty < Formula
   end
 
   depends_on 'pcre'
-  depends_on 'libdrizzle' if ARGV.include? '--with-drizzle'
+  depends_on 'libdrizzle' if build.include? 'with-drizzle'
 
   skip_clean 'logs'
 
@@ -20,14 +20,12 @@ class OpenResty < Formula
     DATA
   end
 
-  def options
-    [
-      ['--with-luajit', "Compile with support for the Lua Just-In-Time Compiler"],
-      ['--with-http_drizzle_module',    "Compile with support for upstream communication with MySQL and/or Drizzle database servers"],
-      ['--with-http_postgres_module', 'Compile with support for direct communication with PostgreSQL database servers'],
-      ['--with-http_iconv_module', 'Compile with support for converting character encodings']
-    ]
-  end
+  option 'with-luajit', 'Compile with support for the Lua Just-In-Time Compiler'
+  option 'with-drizzle',  'Compile with support for upstream communication with MySQL and/or Drizzle database servers'
+  option 'with-postgres', 'Compile with support for direct communication with PostgreSQL database servers'
+  option 'with-iconv', 'Compile with support for converting character encodings'
+  option 'with-passenger', 'Compile the included nginx with Phusion Passenger'
+  option 'with-webdav', 'Compile the included nginx with WebDAV support'
 
   def passenger_config_args
       passenger_root = `passenger-config --root`.chomp
@@ -54,19 +52,19 @@ class OpenResty < Formula
             "--lock-path=#{var}/openresty/nginx.lock"]
 
     # nginx passthrough
-    args << passenger_config_args if ARGV.include? '--with-passenger'
-    args << "--with-http_dav_module" if ARGV.include? '--with-webdav'
-    
+    args << passenger_config_args if build.include? 'with-passenger'
+    args << "--with-http_dav_module" if build.include? 'with-webdav'
+
     # OpenResty options
-    args << "--with-luajit" if ARGV.include? '--with-luajit'
-    args << "--with-http_drizzle_module" if ARGV.include? '--with-drizzle'
-    args << "--with-http_postgres_module" if ARGV.include? '--with-postgres'
-    args << "--with-http_iconv_module" if ARGV.include? '--with-iconv'
+    args << "--with-luajit" if build.include? 'with-luajit'
+    args << "--with-http_drizzle_module" if build.include? 'with-drizzle'
+    args << "--with-http_postgres_module" if build.include? 'with-postgres'
+    args << "--with-http_iconv_module" if build.include? 'with-iconv'
 
     system "./configure", *args
     system "make"
     system "make install"
-    man8.install "objs/nginx.8"
+    man8.install "build/nginx-1.2.1/objs/nginx.8"
 
     plist_path.write startup_plist
     plist_path.chmod 0644
@@ -78,7 +76,7 @@ class OpenResty < Formula
     `openresty`, and place configuration files in separate directories. This
     allows you to have both nginx and OpenResty nginx installed at the same
     time.
-    
+
     In the interest of allowing you to run `openresty` without `sudo`, the
     default port is set to localhost:8080.
 
@@ -125,8 +123,8 @@ class OpenResty < Formula
 end
 
 __END__
---- a/bundle/nginx-1.0.11/conf/nginx.conf
-+++ b/bundle/nginx-1.0.11/conf/nginx.conf
+--- a/bundle/nginx-1.2.1/conf/nginx.conf
++++ b/bundle/nginx-1.2.1/conf/nginx.conf
 @@ -33,7 +33,7 @@
      #gzip  on;
 
