@@ -1,4 +1,5 @@
-homebrew-openresty
-==================
-
-Homebrew formula to install the extended nginx project OpenResty
+# Install
+```
+brew tap nathantsoi/homebrew-resty
+brew install open-resty
+```
