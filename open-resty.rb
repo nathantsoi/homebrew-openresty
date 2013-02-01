@@ -2,12 +2,12 @@ require 'formula'
 
 class OpenResty < Formula
   homepage 'http://openresty.org/'
-  url 'http://agentzh.org/misc/nginx/ngx_openresty-1.2.1.14.tar.gz'
-  sha1 'ed579ccedc3e67aaa3a58bafe2fc737c1750e5d5'
+  url 'http://agentzh.org/misc/nginx/ngx_openresty-1.2.4.14.tar.gz'
+  sha1 'c36944066bb47d72426269e05cf0e519a857f542'
 
   devel do
-    url 'http://agentzh.org/misc/nginx/ngx_openresty-1.0.15.9.tar.gz'
-    sha1 'da9ef4c58a1384f4ba50923eac91a078a9ab286e'
+    url 'http://agentzh.org/misc/nginx/ngx_openresty-1.2.6.1.tar.gz'
+    sha1 '6e25cf573faf58deb233f04dafde35c612cadcc7'
   end
 
   depends_on 'pcre'
@@ -64,7 +64,8 @@ class OpenResty < Formula
     system "./configure", *args
     system "make"
     system "make install"
-    man8.install "build/nginx-1.2.1/objs/nginx.8"
+    man8.install "build/nginx-1.2.4/objs/nginx.8"
+    (prefix/'nginx/logs').mkpath
 
     plist_path.write startup_plist
     plist_path.chmod 0644
@@ -91,6 +92,12 @@ class OpenResty < Formula
 
     Caution: when running as your user (not root) the launch agent will fail
     if you try to use a port below 1024 (such as http's default of 80).
+
+    you may need to create the log directory:
+      mkdir -p #{prefix}/nginx/logs
+
+    create a config and run:
+      openresty -c `pwd`/auth_ctrl.conf
     EOS
   end
 
@@ -123,8 +130,8 @@ class OpenResty < Formula
 end
 
 __END__
---- a/bundle/nginx-1.2.1/conf/nginx.conf
-+++ b/bundle/nginx-1.2.1/conf/nginx.conf
+--- a/bundle/nginx-1.2.4/conf/nginx.conf
++++ b/bundle/nginx-1.2.4/conf/nginx.conf
 @@ -33,7 +33,7 @@
      #gzip  on;
 
