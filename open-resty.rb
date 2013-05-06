@@ -64,7 +64,7 @@ class OpenResty < Formula
     system "./configure", *args
     system "make"
     system "make install"
-    man8.install "build/nginx-1.2.4/objs/nginx.8"
+    man8.install "build/nginx-1.2.4/objs/nginx.8" => 'openresty.8'
     (prefix/'nginx/logs').mkpath
 
     plist_path.write startup_plist
