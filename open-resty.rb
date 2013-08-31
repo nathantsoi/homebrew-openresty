@@ -2,12 +2,12 @@ require 'formula'
 
 class OpenResty < Formula
   homepage 'http://openresty.org/'
-  url 'http://agentzh.org/misc/nginx/ngx_openresty-1.2.4.14.tar.gz'
-  sha1 'c36944066bb47d72426269e05cf0e519a857f542'
+  url 'http://openresty.org/download/ngx_openresty-1.2.8.6.tar.gz'
+  sha256 'a0320b52b55b8b25efd4980888ff8f9ca284a77e5554a240371a50b25602e517'
 
   devel do
-    url 'http://agentzh.org/misc/nginx/ngx_openresty-1.2.6.1.tar.gz'
-    sha1 '6e25cf573faf58deb233f04dafde35c612cadcc7'
+    url 'http://openresty.org/download/ngx_openresty-1.4.2.1.tar.gz'
+    sha256 '6e13766c1dd24166f948d53caba75634b2c36222868ff9525af13125827d3d4a'
   end
 
   depends_on 'pcre'
@@ -64,7 +64,7 @@ class OpenResty < Formula
     system "./configure", *args
     system "make"
     system "make install"
-    man8.install "build/nginx-1.2.4/objs/nginx.8" => 'openresty.8'
+    man8.install "build/nginx-1.2.8/objs/nginx.8" => 'openresty.8'
     (prefix/'nginx/logs').mkpath
 
     plist_path.write startup_plist
