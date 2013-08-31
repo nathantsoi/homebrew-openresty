@@ -16,11 +16,7 @@ class OpenResty < Formula
   depends_on 'postgresql' if build.include? 'with-postgres'
 
   skip_clean 'logs'
-
-  # Changes default port to 8080
-  def patches
-    DATA
-  end
+  skip_clean 'bin'
 
   option 'with-luajit', 'Compile with support for the Lua Just-In-Time Compiler'
   option 'with-drizzle',  'Compile with support for upstream communication with MySQL and/or Drizzle database servers'
@@ -131,16 +127,3 @@ class OpenResty < Formula
     EOPLIST
   end
 end
-
-__END__
---- a/bundle/nginx-1.2.4/conf/nginx.conf
-+++ b/bundle/nginx-1.2.4/conf/nginx.conf
-@@ -33,7 +33,7 @@
-     #gzip  on;
-
-     server {
--        listen       80;
-+        listen       8080;
-         server_name  localhost;
-
-         #charset koi8-r;
