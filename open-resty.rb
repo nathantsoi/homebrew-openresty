@@ -11,6 +11,7 @@ class OpenResty < Formula
   end
 
   depends_on 'pcre'
+  depends_on 'luajit' unless build.include? 'without-luajit'
   depends_on 'libdrizzle' if build.include? 'with-drizzle'
 
   skip_clean 'logs'
@@ -55,8 +56,9 @@ class OpenResty < Formula
     args << passenger_config_args if build.include? 'with-passenger'
     args << "--with-http_dav_module" if build.include? 'with-webdav'
 
-    # OpenResty options
-    args << "--with-luajit" if build.include? 'with-luajit'
+    # default on
+    args << "--with-luajit" unless build.include? 'without-luajit'
+    # default off
     args << "--with-http_drizzle_module" if build.include? 'with-drizzle'
     args << "--with-http_postgres_module" if build.include? 'with-postgres'
     args << "--with-http_iconv_module" if build.include? 'with-iconv'
