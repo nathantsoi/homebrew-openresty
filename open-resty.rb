@@ -18,7 +18,7 @@ class OpenResty < Formula
   skip_clean 'logs'
   skip_clean 'bin'
 
-  option 'with-luajit', 'Compile with support for the Lua Just-In-Time Compiler'
+  option 'without-luajit', 'Remove support for Lua Just-In-Time Compiler'
   option 'with-drizzle',  'Compile with support for upstream communication with MySQL and/or Drizzle database servers'
   option 'with-postgres', 'Compile with support for direct communication with PostgreSQL database servers'
   option 'with-iconv', 'Compile with support for converting character encodings'
