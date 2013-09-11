@@ -11,7 +11,7 @@ class OpenResty < Formula
   end
 
   depends_on 'pcre'
-  depends_on 'luajit' unless build.include? 'without-luajit'
+  depends_on 'luajit' => :recommended
   depends_on 'libdrizzle' if build.include? 'with-drizzle'
   depends_on 'postgresql' if build.include? 'with-postgres'
 
