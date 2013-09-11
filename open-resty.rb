@@ -70,6 +70,10 @@ class OpenResty < Formula
     plist_path.chmod 0644
   end
 
+  def post_install
+    system "mkdir -p #{prefix}/nginx/logs"
+  end
+
   def caveats; <<-EOS.undent
     OpenResty is a beefed up version of nginx, but in order to play nice with
     the standard `nginx` formula, this installer will rename the executable
@@ -91,9 +95,6 @@ class OpenResty < Formula
 
     Caution: when running as your user (not root) the launch agent will fail
     if you try to use a port below 1024 (such as http's default of 80).
-
-    you may need to create the log directory:
-      mkdir -p #{prefix}/nginx/logs
 
     create a config and run:
       openresty -c `pwd`/auth_ctrl.conf
