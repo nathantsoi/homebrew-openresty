@@ -6,8 +6,8 @@ class OpenResty < Formula
   sha256 'a0320b52b55b8b25efd4980888ff8f9ca284a77e5554a240371a50b25602e517'
 
   devel do
-    url 'http://openresty.org/download/ngx_openresty-1.4.2.1.tar.gz'
-    sha256 '6e13766c1dd24166f948d53caba75634b2c36222868ff9525af13125827d3d4a'
+    url 'http://openresty.org/download/ngx_openresty-1.4.2.5.tar.gz'
+    sha256 '685fdf5ff0e51287b76c146912d684f52c52016da81804143651ea6190863c36'
   end
 
   depends_on 'pcre'
