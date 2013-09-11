@@ -97,7 +97,7 @@ class OpenResty < Formula
     if you try to use a port below 1024 (such as http's default of 80).
 
     create a config and run:
-      openresty -c `pwd`/auth_ctrl.conf
+      openresty -c `pwd`/openresty.conf
     EOS
   end
 
