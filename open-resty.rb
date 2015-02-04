@@ -2,13 +2,8 @@ require 'formula'
 
 class OpenResty < Formula
   homepage 'http://openresty.org/'
-  url 'http://openresty.org/download/ngx_openresty-1.2.8.6.tar.gz'
-  sha256 'a0320b52b55b8b25efd4980888ff8f9ca284a77e5554a240371a50b25602e517'
-
-  devel do
-    url 'http://openresty.org/download/ngx_openresty-1.4.2.5.tar.gz'
-    sha256 '685fdf5ff0e51287b76c146912d684f52c52016da81804143651ea6190863c36'
-  end
+  url 'http://openresty.org/download/ngx_openresty-1.7.7.2.tar.gz'
+  sha256 '5cd6db20c3b4e9f128eda7e7b31810f8b278ea0644fdd9d2f51b34ad2b356298'
 
   depends_on 'pcre'
   depends_on 'luajit' => :recommended
