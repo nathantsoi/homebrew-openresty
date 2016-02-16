@@ -1,10 +1,11 @@
 require 'formula'
 
-class OpenResty < Formula
+class Openresty < Formula
   homepage 'http://openresty.org/'
-  url 'http://openresty.org/download/ngx_openresty-1.7.7.2.tar.gz'
-  sha256 '5cd6db20c3b4e9f128eda7e7b31810f8b278ea0644fdd9d2f51b34ad2b356298'
+  url 'https://openresty.org/download/openresty-1.9.7.3.tar.gz'
+  sha256 '3e4422576d11773a03264021ff7985cd2eeac3382b511ae3052e835210a9a69a'
 
+  depends_on 'openssl'
   depends_on 'pcre'
   depends_on 'luajit' => :recommended
   depends_on 'libdrizzle' if build.include? 'with-drizzle'
@@ -61,9 +62,7 @@ class OpenResty < Formula
 
     plist_path.write startup_plist
     plist_path.chmod 0644
-  end
 
-  def post_install
     system "mkdir -p #{prefix}/nginx/logs"
   end
 
@@ -88,6 +87,8 @@ class OpenResty < Formula
 
     Caution: when running as your user (not root) the launch agent will fail
     if you try to use a port below 1024 (such as http's default of 80).
+
+    You may need to creat e log directory with `mkdir -p #{prefix}/nginx/logs`
 
     create a config and run:
       openresty -c `pwd`/openresty.conf
