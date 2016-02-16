@@ -63,7 +63,7 @@ class Openresty < Formula
     plist_path.write startup_plist
     plist_path.chmod 0644
 
-    system "mkdir -p #{prefix}/nginx/logs"
+    system "mkdir -p #{prefix}/nginx/log"
   end
 
   def caveats; <<-EOS.undent
@@ -88,7 +88,7 @@ class Openresty < Formula
     Caution: when running as your user (not root) the launch agent will fail
     if you try to use a port below 1024 (such as http's default of 80).
 
-    You may need to creat e log directory with `mkdir -p #{prefix}/nginx/logs`
+    You may need to creat e log directory with `mkdir -p #{prefix}/nginx/log`
 
     create a config and run:
       openresty -c `pwd`/openresty.conf
